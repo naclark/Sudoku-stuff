@@ -118,3 +118,29 @@ def checkinput(p, inputnum, whichlist, whichelement):
     p[whichlist][whichelement] = inputnum
     print "No problems putting it here!"
     return p
+
+# Function suggestnums takes a sudoku square (p) and coordinates (via whichlist and whichelement)
+# and determines which numbers can possibly be put into that cell.
+    
+def suggestnums(p, whichlist, whichelement):
+    if p[whichlist][whichelement] != 0:
+        print "This cell is already full."
+        return None
+    usable = [1,2,3,4,5,6,7,8,9]
+    for i in p[whichlist]:
+        if i in usable:
+            usable.remove(i)
+    for i in p:
+        if i[whichelement] in usable:
+            usable.remove(i[whichelement])
+    wl = whichlist / 3
+    we = whichelement / 3
+    q = []
+    q.extend(p[wl*3][(we*3):(we*3)+3])
+    q.extend(p[wl*3+1][(we*3):(we*3)+3])
+    q.extend(p[wl*3+2][(we*3):(we*3)+3])
+    for i in q:
+        if i in usable:
+            usable.remove(i)
+    print usable
+    return usable
