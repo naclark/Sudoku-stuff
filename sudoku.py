@@ -24,15 +24,20 @@ test2 = [[0,0,0,0,0,0,0,0,0],
 
 ideallist = [1,2,3,4,5,6,7,8,9]
 
+# Is list p a 9x9 list?
 def issudoku(p):
     if type(p) is not list:
         return False
     if len(p) != 9:
         return False
+    if not all(type(n) is list for n in p):
+        return False
     if len(max(p)) != 9 or len(min(p)) != 9:
         return False
-    return True        
+    return True
 
+#Check each 3x3 box. Starts with upper-left, top, upper-right. The i counter
+#moves it down by 3 each time through the loop.
 def checkboxes(p):
     for i in xrange(3):
         mult = i * 3
@@ -49,6 +54,7 @@ def checkboxes(p):
         if box3 != ideallist:
             return False
     return True
+
 
 def checkrows(p):
     for i in p:
